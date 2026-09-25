@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -27,7 +28,7 @@
             
             <div class="relative z-10 max-w-4xl mx-auto">
                 <span class="inline-block py-1.5 px-4 rounded-full bg-blue-900/50 border border-blue-700/50 text-blue-300 font-semibold text-sm mb-8 uppercase tracking-widest shadow-inner">
-                    🚀 Launching Soon
+                    🚀 Prototype Phase
                 </span>
                 
                 <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-8 leading-tight tracking-tight">
@@ -35,7 +36,7 @@
                 </h1>
                 
                 <p class="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed">
-                    Tired of throwing that heavy glass transaction window 100 times a day? We are building a push-button, retrofit actuator. <strong class="text-white font-semibold">You never have to touch that glass again.</strong>
+                    Tired of throwing that heavy glass transaction window 100 times a day? The constant shoulder strain, the compromised patient privacy, and the ruined lobby AC... We are building a push-button, retrofit actuator. <strong class="text-white font-semibold">You never have to touch that glass again.</strong>
                 </p>
                 
                 <a href="#waitlist" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg py-4 px-10 rounded-xl transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] hover:-translate-y-1">
@@ -48,7 +49,7 @@
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">The Zero-Damage Solution</h2>
-                    <p class="text-slate-400 max-w-2xl mx-auto text-lg">We are keeping the mechanics under wraps, but we are building exactly what medical clinics have been begging for.</p>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-lg">We are keeping the mechanics under wraps, but we are building exactly what dental offices, urgent cares, and pharmacies have been begging for.</p>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -90,7 +91,7 @@
                 
                 <div id="form-container" class="relative z-10">
                     <form id="waitlist-form" class="flex flex-col sm:flex-row gap-3">
-                        <input type="email" id="email-input" placeholder="Clinic or Personal Email" required class="flex-1 bg-slate-950 border border-slate-700 text-white px-5 py-4 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition placeholder-slate-500">
+                        <input type="email" id="email-input" name="email" placeholder="Clinic or Personal Email" required class="flex-1 bg-slate-950 border border-slate-700 text-white px-5 py-4 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition placeholder-slate-500">
                         <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-8 rounded-xl transition shadow-lg hover:shadow-blue-500/50">Notify Me</button>
                     </form>
                 </div>
@@ -105,19 +106,38 @@
 
     <footer class="py-10 text-center border-t border-slate-900 text-slate-500 text-sm">
         <p>&copy; 2026 OletGlide Systems LLC. All rights reserved. Patent Pending.</p>
-        <p class="mt-2 text-slate-600">Based in Elkin, North Carolina.</p>
+        <p class="mt-2 text-slate-600">Proudly engineered in Elkin, North Carolina by a second-generation window specialist.</p>
     </footer>
 
     <script>
-        // Simple script to show the success message without using an ugly browser alert.
         document.getElementById('waitlist-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent page refresh
             
-            // Hide the form input row
-            this.classList.add('hidden');
+            // Get the email they typed in
+            var emailValue = document.getElementById('email-input').value;
             
-            // Show the professional success message
-            document.getElementById('success-message').classList.remove('hidden');
+            // Send it to Formspree using YOUR live link
+            fetch('https://formspree.io/f/xppwlodn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ email: emailValue })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Hide the form input row
+                    document.getElementById('waitlist-form').classList.add('hidden');
+                    
+                    // Show the professional success message
+                    document.getElementById('success-message').classList.remove('hidden');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Oops! There was a problem submitting your email. Please try again.");
+            });
         });
     </script>
 </body>
